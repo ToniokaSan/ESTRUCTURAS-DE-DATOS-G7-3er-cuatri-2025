@@ -9,7 +9,7 @@ public class Dato { // es lo de los jugadores, se ocupa la posicion porque mas a
     private int posicion;
     public Dato(String nombreJugador){
         this.valor = nombreJugador;
-        this.posicion = 0;
+        this.posicion = 0; //para que el jugador inicie en 0
     }
     
     public void setValor(String valor){
