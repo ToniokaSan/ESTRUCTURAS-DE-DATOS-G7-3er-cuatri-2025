@@ -37,9 +37,9 @@ public class MenuJuego {
                     + "\n4. Mantenimiento de premios"
                     + "\n5. Ver lista de castigos"
                     + "\n6. Mantenimiento de castigos"
-                    + "\n7. "
-                    + "\n8. "
-                    + "\n9."
+                    + "\n7.Opcion no dispinible "
+                    + "\n8.Opcion no dispinible "
+                    + "\n9.Opcion no dispinible"
                     + "\n10. Cerrar programa"
             ));
             switch (opcion) {
@@ -111,7 +111,7 @@ public class MenuJuego {
                              }
                     break;
                 case 4:
-                    JOptionPane.showMessageDialog(null, "Informacion" + "\nVersion del juego: V 1.0.N." 
+                    JOptionPane.showMessageDialog(null, "Informacion" + "\nVersion del juego: V 1.0.1." 
                                                          +"\nDesarrolladores: " 
                                                          + "\nAnthony Potoy Aleman"+ "\nSebastian Alvarez Murillo"+ "\nArianna Rodriguez Badilla"+ "\nAnthony Potoy Aleman");
                     break;
