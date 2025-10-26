@@ -67,6 +67,40 @@ public class preparadosListosCola {
     public boolean estaVacia(){
         return frente == null;
     }
+    //aqui se creo un metodo extra para poder eliminar un jugador con la opcion 3 del menu de juego
+    public boolean eliminarJugador(String nombre) {
+        if (estaVacia()) {
+            return false;
+        }
+
+        Nodo actual = frente;
+        Nodo anterior = null;
+        //aqui recorremos la cola 
+        while (actual != null) {
+            //en esta parte comparamos el nombre del jugador que ingreso el usuario en el menu de juego
+            //si lo encontramos entonces busca en que posicion esta para eliminarlo
+            if (actual.getNombreJugador().getValor().equalsIgnoreCase(nombre)) {
+                if (anterior == null) {
+                    // en esta el jugador está al frente
+                    frente = actual.getSiguiente();
+                } else {
+                    anterior.setSiguiente(actual.getSiguiente());
+                }
+
+                // en esta el jugador esta al final
+                if (actual == fin) {
+                    fin = anterior;
+                }
+
+                return true; 
+            }
+
+            anterior = actual;
+            actual = actual.getSiguiente();
+        }
+
+        return false; //esta opcion funciona por si no se encontro al jugador
+    }
     
 
     @Override

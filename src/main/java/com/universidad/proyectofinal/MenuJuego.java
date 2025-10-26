@@ -83,7 +83,7 @@ public class MenuJuego {
                     +"\n1. Iniciar juego de los participantes"
                     +"\n2.Ver lista de posiciones "
                     +"\n3. Eliminar jugador de la cola MVP"
-                    +"\n4. Ayuda "
+                    +"\n4. Ayuda"
                     +"\n5. Volver al menu principal"
             
             
@@ -93,13 +93,27 @@ public class MenuJuego {
                     jugar();
                     break;
                 case 2:
-                    
+                    JOptionPane.showMessageDialog(null, jugadores.toString(), "Lista de Jugadores", JOptionPane.INFORMATION_MESSAGE);
                     break;
                 case 3:
-                    
+                    //aqui pedimos el nombre con JOption para llamar al metodo eliminarJugador y poder comparar lo que ingreso el usuario
+                     String nombreEliminar = JOptionPane.showInputDialog(null, "Ingrese el nombre del jugador que desea eliminar:");
+                         //aqui verificamos que el usuario no haya cancelado la accion o que no haya puesto nada y si es asi llamamos al metodo
+                         if (nombreEliminar != null && !nombreEliminar.isEmpty()) {
+                              boolean eliminado = jugadores.eliminarJugador(nombreEliminar);
+                         if (eliminado) {
+                             JOptionPane.showMessageDialog(null, "El jugador '" + nombreEliminar + "' ha sido eliminado del juego.");
+                         } else {
+                             JOptionPane.showMessageDialog(null, "No se encontró ningún jugador con el nombre '" + nombreEliminar + "'.");
+                             }
+                         } else {
+                             JOptionPane.showMessageDialog(null, "Debe ingresar un nombre válido.");
+                             }
                     break;
                 case 4:
-                    
+                    JOptionPane.showMessageDialog(null, "Informacion" + "\nVersion del juego: V 1.0.N." 
+                                                         +"\nDesarrolladores: " 
+                                                         + "\nAnthony Potoy Aleman"+ "\nSebastian Alvarez Murillo"+ "\nArianna Rodriguez Badilla"+ "\nAnthony Potoy Aleman");
                     break;
                 case 5:
                     JOptionPane.showMessageDialog(null, "Volviendo al menú principal...");
@@ -111,6 +125,7 @@ public class MenuJuego {
         } while(opcion != 5);
         
     }
+    
     public void jugar(){
         //inicio del juego
         if (!jugadores.estaVacia()){
@@ -176,8 +191,40 @@ public class MenuJuego {
 
                 JOptionPane.showMessageDialog(null, "Ahora su posicion colocada es: " + jugadorActual.getPosicion());
                 
-            }else{ // aqui empiezan los castigos
+            }else{//aqui empiezan los castigos
+                if (sumaDados % 2 == 1){
                 
+                JOptionPane.showMessageDialog(null, "Obtuviste un numero impar, debes tomar un castigo de la pila. \nMucha Suerte");
+                DatoCastigo castigoObtenido = null;
+                
+                try{
+                    castigoObtenido = pilaCastigos.desencolar();
+                }catch(Exception e){
+                    JOptionPane.showMessageDialog(null, "No hay castigos disponibles");
+                }
+                
+                //aparicion de castigos
+                if (castigoObtenido != null){
+                    JOptionPane.showMessageDialog(null,
+                            "El castigo es: " + castigoObtenido.getDescripcion()
+                            + "\nSe aplicará su castigo: " + castigoObtenido.getOperacion() + castigoObtenido.getNumero()
+                    
+                    );
+                    if (castigoObtenido.getOperacion() == '+') {
+                        jugadorActual.setPosicion(jugadorActual.getPosicion() + castigoObtenido.getNumero());
+                    } else if (castigoObtenido.getOperacion() == '-') {
+                        jugadorActual.setPosicion(jugadorActual.getPosicion() - castigoObtenido.getNumero());
+                    } else if (castigoObtenido.getOperacion() == '=') {
+                        jugadorActual.setPosicion(castigoObtenido.getNumero());
+                    }
+                    
+                    
+                }else{
+                    JOptionPane.showMessageDialog(null, "Ya no hay castigos disponibles");
+                }
+
+                JOptionPane.showMessageDialog(null, "Ahora su posicion colocada es: " + jugadorActual.getPosicion()); 
+                }
             }
             jugadores.encolar(jugadorActual);
             
