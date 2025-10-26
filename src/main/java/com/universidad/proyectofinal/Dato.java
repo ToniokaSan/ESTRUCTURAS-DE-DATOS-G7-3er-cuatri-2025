@@ -1,7 +1,9 @@
 package com.universidad.proyectofinal;
 
 /**
- *
+ * Representa un jugador en el juego, almacenando su nombre y su posición actual.
+ * Esta clase se utiliza para manejar la información de cada jugador durante el juego.
+ * Autores: Anthony Potoy Alemán, Natalie Barboza Garcia, Arianna Rodriguez Badilla, Sebastian Alvarez Murillo.
  * 
  */
 public class Dato { // es lo de los jugadores, se ocupa la posicion porque mas adelante se necesita en el juego

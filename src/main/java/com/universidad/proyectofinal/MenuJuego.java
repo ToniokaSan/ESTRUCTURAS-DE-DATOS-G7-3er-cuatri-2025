@@ -37,9 +37,9 @@ public class MenuJuego {
                     + "\n4. Mantenimiento de premios"
                     + "\n5. Ver lista de castigos"
                     + "\n6. Mantenimiento de castigos"
-                    + "\n7.Opcion no dispinible "
-                    + "\n8.Opcion no dispinible "
-                    + "\n9.Opcion no dispinible"
+                    + "\n7.Opcion no disponible "
+                    + "\n8.Opcion no disponible "
+                    + "\n9.Opcion no disponible"
                     + "\n10. Cerrar programa"
             ));
             switch (opcion) {
