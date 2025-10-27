@@ -127,7 +127,7 @@ public class MenuJuego {
                 case 4:
                     JOptionPane.showMessageDialog(null, "Informacion" + "\nVersion del juego: V 1.0.1." 
                                                          +"\nDesarrolladores: " 
-                                                         + "\nAnthony Potoy Aleman"+ "\nSebastian Alvarez Murillo"+ "\nArianna Rodriguez Badilla"+ "\nAnthony Potoy Aleman");
+                                                         + "\nAnthony Potoy Aleman"+ "\nSebastian Alvarez Murillo"+ "\nArianna Rodriguez Badilla"+ "\nNatalie Barboza Garcia");
                     break;
                 case 5:
                     JOptionPane.showMessageDialog(null, "Volviendo al menú principal...");
