@@ -3,7 +3,10 @@ package com.universidad.proyectofinal;
 import javax.swing.*;
 
 /**
- * @author 
+ * Clase principal del proyecto final de Estructuras de Datos.
+ * Se encarga de inicializar los jugadores, las pilas de premios y castigos,
+ * y de iniciar el menú principal del juego.
+ *  Autores: Anthony Potoy Alemán, Natalie Barboza Garcia, Arianna Rodriguez Badilla, Sebastian Alvarez Murillo.
  */
 public class ProyectoFinal {
 
@@ -56,6 +59,7 @@ public class ProyectoFinal {
         
         
         JOptionPane.showMessageDialog(null, pilaCastigos.toString(), "Mantenimiento de Pilas", JOptionPane.INFORMATION_MESSAGE);
+        //iniciador del menu donde se gestionara el juego
         MenuJuego menu1 = new MenuJuego(jugadores,pilaPremios,pilaCastigos);
         menu1.mostrarMenu();
         

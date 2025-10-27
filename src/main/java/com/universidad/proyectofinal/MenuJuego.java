@@ -5,8 +5,9 @@
 package com.universidad.proyectofinal;
 import javax.swing.JOptionPane;
 /**
- *
- * @author potoy
+ * Clase que permite visualizar el menu principal y secundario del juego MVP donde se encuentra
+ * la mayor parte de la logica de metodos como agregar y jugar.
+ * Autores: Anthony Potoy Alemán, Natalie Barboza Garcia, Arianna Rodriguez Badilla, Sebastian Alvarez Murillo.
  */
 
 public class MenuJuego {
@@ -18,7 +19,12 @@ public class MenuJuego {
     
     //fin de los objetos inicializados por naty
     
-    //constructor para que los reconozca
+    /**
+     * Constructor que permite extraer los elementos ya inicializados en el main
+     * @param jugadores Cola de jugadores
+     * @param pilaPremios Pila de premios
+     * @param pilaCastigos Pila de castigos
+     */
     public MenuJuego(preparadosListosCola jugadores, PilaPremios pilaPremios, PilaCastigo pilaCastigos) {
         this.jugadores = jugadores;
         this.pilaPremios = pilaPremios;
@@ -26,7 +32,10 @@ public class MenuJuego {
     } // fin del constructor que reconoce
     
     
-    
+    /**
+     * Menu principal del proyecto MVP, donde permite ejecutar la opcion jugar, mantenimiento de premios
+     * y castigos ademas de futuras implementaciones.
+     */
     public void mostrarMenu() {
         int opcion;
         do {
@@ -75,6 +84,11 @@ public class MenuJuego {
             }
         } while (opcion != 10);
     }
+    
+    /**
+     * Muestra el submeno de jugar, donde permite iniciar el jeugo de las jugadores
+     * ademas de las opciones de ver jugadores, eliminar jugadores y la opcion ayuda.
+     */
     public void menuJugar(){
         int opcion;
         do{
@@ -126,6 +140,10 @@ public class MenuJuego {
         
     }
     
+    /**
+     * Metodo principal que permite ejecutar la logica del juego donde se lanzaran dos dados por rondas
+     * dependiendo de su resultado se aplicará premio o castigo al jugador afectando su posicion.
+     */
     public void jugar(){
         //inicio del juego
         if (!jugadores.estaVacia()){

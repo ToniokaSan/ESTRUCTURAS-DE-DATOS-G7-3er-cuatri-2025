@@ -5,8 +5,9 @@
 package com.universidad.proyectofinal;
 
 /**
- *
- * @author potoy
+ * Menu interactivo que permite modificar los elementos que se encuentras en la pila de premios
+ * Permite al usuario, agregar, eliminar, modificar y ver premios disponibles
+ * Autores: Anthony Potoy Alemán, Natalie Barboza Garcia, Arianna Rodriguez Badilla, Sebastian Alvarez Murillo.
  */
 import javax.swing.JOptionPane;
 
@@ -14,9 +15,17 @@ public class MantenimientoPilaPremio {
 
      PilaPremios pilaPremios;
 
+     /**
+      * Inicializa la pila de premios existentes 
+      * @param pilaPremios objeto de la pila de premios que se gestionara por el menu
+      */
     public  MantenimientoPilaPremio(PilaPremios pilaPremios) {
         this.pilaPremios = pilaPremios;
     }
+    /**
+     * Menu interactivo que permitira gestionar la pila de premios, en sus funciones se encuentra:
+     * Agregar, eliminar, modificar, y ver los premios disponibles en la pila.
+     */
     public void menuPilaPremio() {
     boolean salir = false;
     while (!salir){
@@ -56,12 +65,20 @@ public class MantenimientoPilaPremio {
     }
         
     }
+    
+    /**
+     * Metodo agregarPremio que permite encolar un nuevo premio a la pila
+     */
     public void agregarPremio(){
         char operacion = JOptionPane.showInputDialog("Ingrese operacion (+ o -):").charAt(0);
         int numero = Integer.parseInt(JOptionPane.showInputDialog(null,"Ingrese el numero:"));
         String descripcion = JOptionPane.showInputDialog(null,"Ingrese la descrpcion");
         pilaPremios.encolar(operacion, numero, descripcion);
     }
+    
+    /**
+     *Metodo eliminarPremio permite desencolar o (eliminar) un elemento de la pila. 
+     */
     public void eliminarPremio(){
         try {
             DatoPremio eliminado = pilaPremios.desencolar();
@@ -70,6 +87,10 @@ public class MantenimientoPilaPremio {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
+    /**
+     * Permite buscar un premio y modificar sus atributos, tales como 
+     * Nueva operacion, nuevo numero y nueva descripcion, si este no se encuentra lo mostrara con mensaje.
+     */
     public void modificarPremio (){
         String descripcionBuscada = JOptionPane.showInputDialog("Ingrese la descrpcion del premio para modificarlo:");
         char nuevaOperacion = JOptionPane.showInputDialog("Ingrese nueva operacion:").charAt(0);
