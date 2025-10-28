@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 
 public class MantenimientoPilaPremio {
 
-     PilaPremios pilaPremios;// test
+     PilaPremios pilaPremios;
 
      /**
       * Inicializa la pila de premios existentes 
