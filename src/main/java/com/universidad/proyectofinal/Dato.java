@@ -14,15 +14,18 @@ public class Dato { // es lo de los jugadores, se ocupa la posicion porque mas a
      * Constructor de la clase Dato. Inicializa un jugador con su nombre y la
      * posición inicial en 0.
      *
-     * @param nombreJugador Nombre del jugador a crear.
+     * @param valor Nombre del jugador a crear.
      */
-    
-    public Dato(String nombreJugador){
-        this.valor = nombreJugador;
+
+    public Dato(String valor){
+        this.valor = valor;
         this.posicion = 0; //para que el jugador inicie en 0
     }
-    
-    
+
+    public Dato() {
+    }
+
+
     /**
      * modifica el nombre del jugador
      * @param valor el nombre del jugador

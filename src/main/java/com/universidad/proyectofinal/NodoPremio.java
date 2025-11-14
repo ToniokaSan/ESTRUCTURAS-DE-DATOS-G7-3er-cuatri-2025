@@ -5,7 +5,7 @@ package com.universidad.proyectofinal;
  * ademas del puntero, en este caso el (abajo)
  *  Autores: Anthony Potoy Alemán, Natalie Barboza Garcia, Arianna Rodriguez Badilla, Sebastian Alvarez Murillo.
  */
-public class NodoPremio {
+public class NodoPremio extends Nodo {
     private DatoPremio dato; //informacion del dato del premio
     private NodoPremio abajo; //puntero hacia el siguiente nodo
 

@@ -26,7 +26,7 @@ public class ProyectoFinal {
 
         for (int i = 0; i < cantidadJugadores; i++) {
             String nombreJugador = JOptionPane.showInputDialog(null, "Ingrese el nombre del jugador " + (i + 1) + ":", "Ingreso de Jugador", JOptionPane.INFORMATION_MESSAGE);
-            Dato dato = new Dato(nombreJugador);
+            DatoJugador dato = new DatoJugador(nombreJugador);
             jugadores.encolar(dato);
             JOptionPane.showMessageDialog(null, "Jugador '" + nombreJugador + "' agregado a la cola.", "Confirmación", JOptionPane.INFORMATION_MESSAGE);
         }

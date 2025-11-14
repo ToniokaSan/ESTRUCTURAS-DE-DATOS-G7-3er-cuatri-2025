@@ -20,12 +20,15 @@ public class Nodo {
     public Nodo(Dato nombreJugador){
         this.nombreJugador = nombreJugador;
     }
-    
+
+    public Nodo() {
+    }
+
     /**
      * modifica el dato del jugador que se almaceno en el nodo
      * @param nombreJugador nuevo objeto con la informacion del jugador
      */
-    public void setDato(Dato nombreJugador){
+    public void setNombreJugador(Dato nombreJugador){
         this.nombreJugador = nombreJugador;
     }
     
