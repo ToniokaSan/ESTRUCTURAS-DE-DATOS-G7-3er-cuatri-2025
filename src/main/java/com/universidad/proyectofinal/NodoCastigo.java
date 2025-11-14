@@ -5,7 +5,7 @@ package com.universidad.proyectofinal;
  * Descripcion, ademas del simbolo del castigo obtenido.
  * Autores: Anthony Potoy Alemán, Natalie Barboza Garcia, Arianna Rodriguez Badilla, Sebastian Alvarez Murillo.
  */
-public class NodoCastigo {
+public class NodoCastigo extends Nodo {
     private DatoCastigo dato; //informacion del dato castigo en el nodo
     private NodoCastigo siguiente; //puntero al siguiente nodo
 
