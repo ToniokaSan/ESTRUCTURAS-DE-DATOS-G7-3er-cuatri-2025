@@ -1,47 +1,76 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.universidad.proyectofinal;
 
 /**
- * Representa un castigo dentro del juego, con su tipo de operación, número asociado
- * y una descripción detallada. Se utiliza para aplicar penalizaciones o acciones.
- * especiales a los jugadores.
+ * Representa un jugador en el juego, almacenando su nombre y su posición actual.
+ * Esta clase se utiliza para manejar la información de cada jugador durante el juego.
  * Autores: Anthony Potoy Alemán, Natalie Barboza Garcia, Arianna Rodriguez Badilla, Sebastian Alvarez Murillo.
+ * 
  */
-public class DatoJugador extends Dato {
-
-    private String nombreJugador;
-
+public class DatoJugador { // es lo de los jugadores, se ocupa la posicion porque mas adelante se necesita en el juego
+    private String valor;
+    private int posicion;
+    
     /**
-     * Constructor de la clase DatoCastigo. Crea un nuevo castigo con su
-     * operación, número y descripción.
+     * Constructor de la clase Dato. Inicializa un jugador con su nombre y la
+     * posición inicial en 0.
      *
-     * @param nombreJugador Texto descriptivo que explica el castigo.
+     * @param valor Nombre del jugador a crear.
      */
 
-    public DatoJugador( String nombreJugador) {
-
-        this.nombreJugador = nombreJugador;
+    public DatoJugador(String valor){
+        this.valor = valor;
+        this.posicion = 0; //para que el jugador inicie en 0
     }
 
-    public String getNombreJugador() {
-        return nombreJugador;
+    public DatoJugador() {
     }
 
-    public void setNombreJugador(String nombreJugador) {
-        this.nombreJugador = nombreJugador;
+
+    /**
+     * modifica el nombre del jugador
+     * @param valor el nombre del jugador
+     */
+    public void setValor(String valor){
+        this.valor = valor;
+    }
+    
+    /**
+     * obtiene el nombre del jugador 
+     * @return el nombre del jugador
+     */
+    public String getValor(){
+        return valor;
     }
 
     /**
-     * Devuelve una representación en texto del castigo, incluyendo su
-     * operación, número y descripción.
-     *
-     * @return Cadena con los datos del castigo.
+     * obtiene la posicion del jugador
+     * @return la posicion del jugador
      */
+    public int getPosicion() {
+        return posicion;
+    }
+
+    /**
+     * modifica la posicion
+     * @param posicion nueva del jugador
+     */
+    public void setPosicion(int posicion) {
+        this.posicion = posicion;
+    }
+
+    
+    
+    /**
+     * Devuelve una representación en cadena del jugador, incluyendo su nombre y
+     * posición.
+     *
+     * @return Cadena con el nombre y posición del jugador.
+     */
+    
+    
     @Override
     public String toString() {
-        return "Operación: " + nombreJugador ;
+         return valor + " - Posición: " + posicion;
     }
+    
 }

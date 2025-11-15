@@ -1,4 +1,3 @@
-
 package com.universidad.proyectofinal;
 
 /**
@@ -56,10 +55,10 @@ public class preparadosListosCola {
 
     /**
      * Agrega un nuevo jugador a la cola
-     * @param nombreJugador Objeto que {@link Dato} que contiene la informacion
+     * @param nombreJugador Objeto que {@link DatoJugador} que contiene la informacion
      * Del jugador
      */
-    public void encolar(Dato nombreJugador) {
+    public void encolar(DatoJugador nombreJugador) {
         Nodo nuevo = new Nodo(nombreJugador);
         if (frente == null) {
             frente = nuevo;
@@ -74,13 +73,13 @@ public class preparadosListosCola {
      * @return objeto Tipo dato con la informacion del jugador
      * @throws Exception Si la cola esta vacia.
      */
-    public Dato desencolar() throws Exception {
+    public DatoJugador desencolar() throws Exception {
 
         if (frente == null ){
             throw new Exception("No hay jugadores, no se puede desencolar");
 
         } else {
-            Dato temp = frente.getNombreJugador();
+            DatoJugador temp = frente.getNombreJugador();
             frente = frente.getSiguiente();
 
             if (frente == null) {
@@ -94,7 +93,7 @@ public class preparadosListosCola {
      * Obtiene el jugador que está al frente de la cola sin eliminarlo
      * @return La informacion del jugador al frente
      */
-    public Dato frente(){
+    public DatoJugador frente(){
         if (this.getFrente() == null) {
             return null;
         } else {
@@ -174,5 +173,18 @@ public class preparadosListosCola {
             return sb.toString();
         }
     }
+
+    /**
+     * Devuelve la cantidad de jugadores en la cola
+     * @return número de elementos en la cola
+     */
+    public int cantidad() {
+        int contador = 0;
+        Nodo actual = frente;
+        while (actual != null) {
+            contador++;
+            actual = actual.getSiguiente();
+        }
+        return contador;
+    }
 }
-    
