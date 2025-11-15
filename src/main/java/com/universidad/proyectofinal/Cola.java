@@ -47,13 +47,13 @@ public class Cola {
         fin = nuevo;    // Coloco la referencia del fin a apuntar a la nueva cajita
     }
     
-    public Dato desencolar()throws Exception {
+    public DatoJugador desencolar()throws Exception {
     
         if (frente == null){  // Si la cola está vacía. NO podemos desencolar
             // Retorne una excepción para que el usuario sepa que no se pudo desencolar.
             throw new Exception("Cola vacía, no se puede desencolar");
         }else{
-            Dato temp = frente.getNombreJugador(); // Guardar el dato del frente en una variable temporal para NO perderlo.
+            DatoJugador temp = frente.getNombreJugador(); // Guardar el dato del frente en una variable temporal para NO perderlo.
             frente = frente.getSiguiente(); // Mover la ferencia del frente al segundo.
             
             if (frente == null){    //Si la cola queda nula después de eliminar un elemento
@@ -64,7 +64,7 @@ public class Cola {
     
     }
     
-    public Dato frente(){
+    public DatoJugador frente(){
         if (this.getFrente() == null)
             return null;
         else

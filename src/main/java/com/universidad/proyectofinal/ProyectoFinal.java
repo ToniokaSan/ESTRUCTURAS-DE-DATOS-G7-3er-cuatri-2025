@@ -34,6 +34,18 @@ public class ProyectoFinal {
         String listaCompleta = jugadores.toString();
         JOptionPane.showMessageDialog(null, listaCompleta, "Lista Final de Jugadores", JOptionPane.INFORMATION_MESSAGE);
 
+        int posicionMaxima = 0;
+        while (posicionMaxima <= 0) {
+            String inputPosicion = JOptionPane.showInputDialog(null, "Ingrese la posición máxima del laberinto:", "Configuración del Juego", JOptionPane.QUESTION_MESSAGE);
+            posicionMaxima = Integer.parseInt(inputPosicion);
+            if (posicionMaxima <= 0) {
+                JOptionPane.showMessageDialog(null, "La posición máxima debe ser un número positivo.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+        String inputPermitir = JOptionPane.showInputDialog(null, "¿Permitir el ingreso de más jugadores? (S/N):", "Configuración del Juego", JOptionPane.QUESTION_MESSAGE);
+        boolean permitirNuevosJugadores = inputPermitir.equalsIgnoreCase("S");
+
         PilaPremios pilaPremios = new PilaPremios();
         PilaCastigo pilaCastigos = new PilaCastigo();
 
@@ -60,7 +72,7 @@ public class ProyectoFinal {
         
         JOptionPane.showMessageDialog(null, pilaCastigos.toString(), "Mantenimiento de Pilas", JOptionPane.INFORMATION_MESSAGE);
         //iniciador del menu donde se gestionara el juego
-        MenuJuego menu1 = new MenuJuego(jugadores,pilaPremios,pilaCastigos);
+        MenuJuego menu1 = new MenuJuego(jugadores,pilaPremios,pilaCastigos, posicionMaxima, permitirNuevosJugadores);
         menu1.mostrarMenu();
         
     }

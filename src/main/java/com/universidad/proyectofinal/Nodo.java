@@ -7,7 +7,7 @@ package com.universidad.proyectofinal;
  * Autores: Anthony Potoy Alemán, Natalie Barboza Garcia, Arianna Rodriguez Badilla, Sebastian Alvarez Murillo.
  */
 public class Nodo {
-    private Dato nombreJugador;  // Información del jugador almacenada en este nodo
+    private DatoJugador nombreJugador;  // Información del jugador almacenada en este nodo
     private Nodo siguiente; // Referencia al siguiente nodo de la estructura
     
     /**
@@ -17,18 +17,21 @@ public class Nodo {
      * @param nombreJugador Objeto Dato que contiene el nombre y la posición del
      * jugador.
      */
-    public Nodo(Dato nombreJugador){
+    public Nodo(DatoJugador nombreJugador){
         this.nombreJugador = nombreJugador;
     }
 
     public Nodo() {
     }
 
+    public Nodo(Dato valor) {
+    }
+
     /**
      * modifica el dato del jugador que se almaceno en el nodo
      * @param nombreJugador nuevo objeto con la informacion del jugador
      */
-    public void setNombreJugador(Dato nombreJugador){
+    public void setNombreJugador(DatoJugador nombreJugador){
         this.nombreJugador = nombreJugador;
     }
     
@@ -46,7 +49,7 @@ public class Nodo {
      *
      * @return Objeto Dato con la información del jugador.
      */
-    public Dato getNombreJugador(){
+    public DatoJugador getNombreJugador(){
         return nombreJugador;
     }
     
