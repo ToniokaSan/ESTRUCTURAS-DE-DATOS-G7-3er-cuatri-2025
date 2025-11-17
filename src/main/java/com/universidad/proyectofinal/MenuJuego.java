@@ -179,7 +179,7 @@ public class MenuJuego {
                              }
                     break;
                 case 4:
-                    JOptionPane.showMessageDialog(null, "Informacion" + "\nVersion del juego: V 1.0.1." 
+                    JOptionPane.showMessageDialog(null, "Informacion" + "\nVersion del juego: V 1.0.2." 
                                                          +"\nDesarrolladores: " 
                                                          + "\nAnthony Potoy Aleman"+ "\nSebastian Alvarez Murillo"+ "\nArianna Rodriguez Badilla"+ "\nNatalie Barboza Garcia");
                     break;
@@ -193,11 +193,32 @@ public class MenuJuego {
         } while(opcion != 5);
         
     }
+   // este metodo se va a utilizar en el codigo para validar que el jugador no se pase de la posicion maxima y de hacerlo este jugador rebota y retrocede la cantidad de posiciones que se pase
+   private int validarRebote(int posicion) {
+    if (posicion > posicionMaxima) {// condicion, si la poscion es mayor que la posicion maxima
+        int exceso = posicion - posicionMaxima;//calculamos el exceso
+        int nueva = posicionMaxima - exceso; //calculamos la nueva posicion restandole el exeso
 
+        JOptionPane.showMessageDialog(null,
+                "¡Te pasaste de la meta!\n" +
+                "Llegaste mas alla de la posicion maxima (" + posicionMaxima + ") y retrocedes " + exceso +
+                " posiciones.\nTu nueva posición es: " + nueva);//Mostramos en pantalla
+
+        bitacora.agregar(timeStamp() +
+                " - Rebote al pasar la meta. Exceso: " + exceso +
+                ", nueva posición: " + nueva);
+
+        return nueva;
+    }
+
+    return posicion; // si no se pasó, no se modifica
+}
+    
     /**
      * Metodo principal que permite ejecutar la logica del juego donde se lanzaran dos dados por rondas
      * dependiendo de su resultado se aplicará premio o castigo al jugador afectando su posicion.
      */
+    
     public void jugar(){
         //inicio del juego
         if (!jugadores.estaVacia()){
@@ -226,7 +247,9 @@ public class MenuJuego {
             bitacora.agregar(timeStamp() + " - Suma de dados: " + sumaDados);
 
             int nuevaPosicion = jugadorActual.getPosicion() + sumaDados;
-            jugadorActual.setPosicion(nuevaPosicion);
+            jugadorActual.setPosicion(validarRebote(nuevaPosicion));
+
+
             
             JOptionPane.showMessageDialog(null,
                     "\nJugador: "+ jugadorActual.getValor()
@@ -261,10 +284,16 @@ public class MenuJuego {
                     bitacora.agregar(timeStamp() + " - Aplicando premio: " + premioObtenido.getOperacion() + premioObtenido.getNumero() + " al jugador " + jugadorActual.getValor());
                     if (premioObtenido.getOperacion() == '+') {
                         jugadorActual.setPosicion(jugadorActual.getPosicion() + premioObtenido.getNumero());
+                        //int nueva = jugadorActual.getPosicion() + premioObtenido.getNumero();
+                        //jugadorActual.setPosicion(validarRebote(nueva));
                     } else if (premioObtenido.getOperacion() == '-') {
-                        jugadorActual.setPosicion(jugadorActual.getPosicion() - premioObtenido.getNumero());
+                        jugadorActual.setPosicion(jugadorActual.getPosicion() + premioObtenido.getNumero());
+                       //int nueva = jugadorActual.getPosicion() + premioObtenido.getNumero();
+                       //jugadorActual.setPosicion(validarRebote(nueva));
                     } else if (premioObtenido.getOperacion() == '=') {
-                        jugadorActual.setPosicion(premioObtenido.getNumero());
+                        jugadorActual.setPosicion(jugadorActual.getPosicion() + premioObtenido.getNumero());
+                        //int nueva = jugadorActual.getPosicion() + premioObtenido.getNumero();
+                        //jugadorActual.setPosicion(validarRebote(nueva));
                     }
                     descripcionMovimiento = premioObtenido.getDescripcion() + " (" + premioObtenido.getOperacion() + premioObtenido.getNumero() + ")";
                 }else{
