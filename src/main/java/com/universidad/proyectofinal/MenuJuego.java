@@ -247,7 +247,7 @@ public class MenuJuego {
             bitacora.agregar(timeStamp() + " - Suma de dados: " + sumaDados);
 
             int nuevaPosicion = jugadorActual.getPosicion() + sumaDados;
-            jugadorActual.setPosicion(validarRebote(nuevaPosicion));
+            jugadorActual.setPosicion(validarRebote(nuevaPosicion));//utilizamos el metodo validarRebote para que si se pasa de la posicion maxima retroceda
 
 
             
@@ -283,17 +283,17 @@ public class MenuJuego {
                     );
                     bitacora.agregar(timeStamp() + " - Aplicando premio: " + premioObtenido.getOperacion() + premioObtenido.getNumero() + " al jugador " + jugadorActual.getValor());
                     if (premioObtenido.getOperacion() == '+') {
-                        jugadorActual.setPosicion(jugadorActual.getPosicion() + premioObtenido.getNumero());
+                        jugadorActual.setPosicion(jugadorActual.getPosicion() + premioObtenido.getNumero()); //eliminar esta parte en caso de utilizar el metodo de validarRebote
                         //int nueva = jugadorActual.getPosicion() + premioObtenido.getNumero();
-                        //jugadorActual.setPosicion(validarRebote(nueva));
-                    } else if (premioObtenido.getOperacion() == '-') {
-                        jugadorActual.setPosicion(jugadorActual.getPosicion() + premioObtenido.getNumero());
+                        //jugadorActual.setPosicion(validarRebote(nueva));   //este codigo es para aplicar tambien la validacion de posicion maxima a los premios por si un premio se pasa de la meta pero es muy dificil ganar el juego con esta validcion asi que se puede utilizar en caso de que sea necesario
+                    } else if (premioObtenido.getOperacion() == '-') {         
+                        jugadorActual.setPosicion(jugadorActual.getPosicion() + premioObtenido.getNumero());//eliminar esta parte en caso de utilizar el metodo de validarRebote
                        //int nueva = jugadorActual.getPosicion() + premioObtenido.getNumero();
-                       //jugadorActual.setPosicion(validarRebote(nueva));
+                       //jugadorActual.setPosicion(validarRebote(nueva));  //este codigo es para aplicar tambien la validacion de posicion maxima a los premios por si un premio se pasa de la meta pero es muy dificil ganar el juego con esta validcion asi que se puede utilizar en caso de que sea necesario
                     } else if (premioObtenido.getOperacion() == '=') {
-                        jugadorActual.setPosicion(jugadorActual.getPosicion() + premioObtenido.getNumero());
+                        jugadorActual.setPosicion(jugadorActual.getPosicion() + premioObtenido.getNumero());//eliminar esta parte en caso de utilizar el metodo de validarRebote
                         //int nueva = jugadorActual.getPosicion() + premioObtenido.getNumero();
-                        //jugadorActual.setPosicion(validarRebote(nueva));
+                        //jugadorActual.setPosicion(validarRebote(nueva));  //este codigo es para aplicar tambien la validacion de posicion maxima a los premios por si un premio se pasa de la meta pero es muy dificil ganar el juego con esta validcion asi que se puede utilizar en caso de que sea necesario
                     }
                     descripcionMovimiento = premioObtenido.getDescripcion() + " (" + premioObtenido.getOperacion() + premioObtenido.getNumero() + ")";
                 }else{
