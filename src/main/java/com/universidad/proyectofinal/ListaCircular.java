@@ -5,32 +5,54 @@
 package com.universidad.proyectofinal;
 
 /**
- *
- * @author EQUIPO
+ *Clase lista circular, permite crear una lista circular en las que se vincula el primer elemento, con el ultimo
+ * Autores: Anthony Potoy Alemán, Natalie Barboza Garcia, Arianna Rodriguez Badilla, Sebastian Alvarez Murillo.
  */
 public class ListaCircular {
     private NodoCircular primero;
     private NodoCircular ultimo;
 
+    /**
+     * Constructor vacio para creacion de objetos.
+     */
     public ListaCircular() {
     }
 
+    /**
+     * obtiene el primer elemento
+     * @return primero
+     */
     public NodoCircular getPrimero() {
         return primero;
     }
 
+    /**
+     * obtiene el ultimo elemento
+     * @return ultimo
+     */
     public NodoCircular getUltimo() {
         return ultimo;
     }
 
+    /**
+     * modifica el primer elemento de la lista circular
+     * @param primero 
+     */
     public void setPrimero(NodoCircular primero) {
         this.primero = primero;
     }
 
+    /**
+     * modifica el ultimo elemento de la lista ciruclar
+     * @param ultimo 
+     */
     public void setUltimo(NodoCircular ultimo) {
         this.ultimo = ultimo;
     }
-    
+    /**
+     * Metodo que permite insertar un elemento de forma ordenada, lo ordena por sus atributos.
+     * @param valor 
+     */
     public void insertaOrdenado(int valor){
         // Caso 1: La lista está vacía.
         if (primero == null){

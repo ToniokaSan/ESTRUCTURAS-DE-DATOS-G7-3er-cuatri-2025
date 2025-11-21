@@ -7,6 +7,8 @@ import javax.swing.JOptionPane;
 import java.util.Date;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.text.SimpleDateFormat; //formato hora español
+import java.util.Locale; //formato hora español
 /**
  * Clase que permite visualizar el menu principal y secundario del juego MVP donde se encuentra
  * la mayor parte de la logica de metodos como agregar y jugar.
@@ -19,6 +21,7 @@ public class MenuJuego {
     private preparadosListosCola jugadores;
     private PilaPremios pilaPremios;
     private PilaCastigo pilaCastigos;
+    
     private int posicionMaxima;
     private boolean permitirNuevosJugadores;
     private Bitacora bitacora; // bitácora (texto simple)
@@ -127,7 +130,8 @@ public class MenuJuego {
                     break;
                 case 9:
                     // mostrar bitácora completa con la lista doble circular (jugadores y sus historiales)
-                    JOptionPane.showMessageDialog(null, listaJugadoresHist.toString(), "Bitácora - Historial", JOptionPane.INFORMATION_MESSAGE);
+                    //JOptionPane.showMessageDialog(null, listaJugadoresHist.toString(), "Bitácora - Historial", JOptionPane.INFORMATION_MESSAGE);
+                    mostrarBitacoraHistorial();
                     break;
                 case 10:
                     JOptionPane.showMessageDialog(null, "Cerrando programa");
@@ -284,16 +288,16 @@ public class MenuJuego {
                     bitacora.agregar(timeStamp() + " - Aplicando premio: " + premioObtenido.getOperacion() + premioObtenido.getNumero() + " al jugador " + jugadorActual.getValor());
                     if (premioObtenido.getOperacion() == '+') {
                         jugadorActual.setPosicion(jugadorActual.getPosicion() + premioObtenido.getNumero()); //eliminar esta parte en caso de utilizar el metodo de validarRebote
-                        //int nueva = jugadorActual.getPosicion() + premioObtenido.getNumero();
-                        //jugadorActual.setPosicion(validarRebote(nueva));   //este codigo es para aplicar tambien la validacion de posicion maxima a los premios por si un premio se pasa de la meta pero es muy dificil ganar el juego con esta validcion asi que se puede utilizar en caso de que sea necesario
+                        int nueva = jugadorActual.getPosicion() + premioObtenido.getNumero();
+                        jugadorActual.setPosicion(validarRebote(nueva));   //este codigo es para aplicar tambien la validacion de posicion maxima a los premios por si un premio se pasa de la meta pero es muy dificil ganar el juego con esta validcion asi que se puede utilizar en caso de que sea necesario
                     } else if (premioObtenido.getOperacion() == '-') {         
                         jugadorActual.setPosicion(jugadorActual.getPosicion() + premioObtenido.getNumero());//eliminar esta parte en caso de utilizar el metodo de validarRebote
-                       //int nueva = jugadorActual.getPosicion() + premioObtenido.getNumero();
-                       //jugadorActual.setPosicion(validarRebote(nueva));  //este codigo es para aplicar tambien la validacion de posicion maxima a los premios por si un premio se pasa de la meta pero es muy dificil ganar el juego con esta validcion asi que se puede utilizar en caso de que sea necesario
+                       int nueva = jugadorActual.getPosicion() + premioObtenido.getNumero();
+                       jugadorActual.setPosicion(validarRebote(nueva));  //este codigo es para aplicar tambien la validacion de posicion maxima a los premios por si un premio se pasa de la meta pero es muy dificil ganar el juego con esta validcion asi que se puede utilizar en caso de que sea necesario
                     } else if (premioObtenido.getOperacion() == '=') {
                         jugadorActual.setPosicion(jugadorActual.getPosicion() + premioObtenido.getNumero());//eliminar esta parte en caso de utilizar el metodo de validarRebote
-                        //int nueva = jugadorActual.getPosicion() + premioObtenido.getNumero();
-                        //jugadorActual.setPosicion(validarRebote(nueva));  //este codigo es para aplicar tambien la validacion de posicion maxima a los premios por si un premio se pasa de la meta pero es muy dificil ganar el juego con esta validcion asi que se puede utilizar en caso de que sea necesario
+                        int nueva = jugadorActual.getPosicion() + premioObtenido.getNumero();
+                        jugadorActual.setPosicion(validarRebote(nueva));  //este codigo es para aplicar tambien la validacion de posicion maxima a los premios por si un premio se pasa de la meta pero es muy dificil ganar el juego con esta validcion asi que se puede utilizar en caso de que sea necesario
                     }
                     descripcionMovimiento = premioObtenido.getDescripcion() + " (" + premioObtenido.getOperacion() + premioObtenido.getNumero() + ")";
                 }else{
@@ -369,4 +373,60 @@ public class MenuJuego {
         }
     }// fin del metodo jugar
     
+    /**
+     * Metodo que permite realizar un historial utilizando la bitacora
+     * en la que permite avanzar y retroceder entre los jugadores, viendo su historial de posiciones
+     * asi como castigos y premios
+     */
+    public void mostrarBitacoraHistorial() {
+        NodoJugadorHist primerJugador = listaJugadoresHist.getPrimero(); // obtienes el primero desde tu lista
+        if (primerJugador == null) {
+            JOptionPane.showMessageDialog(null, "Aun no hay jugadores registrados", "Bitácora", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        NodoJugadorHist actual = primerJugador;
+        boolean continuar = true;
+
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE dd 'de' MMMM yyyy HH:mm:ss", new Locale("es", "ES"));
+
+        while (continuar) {
+            StringBuilder mensaje = new StringBuilder();
+            mensaje.append("Jugador: ").append(actual.getNombre()).append("\nHistorial de posiciones:\n");
+
+            NodoPosicion pos = actual.getHistorial().getPrimero();
+            if (pos == null) {
+                mensaje.append("No tiene movimientos registrados.\n");
+            } else {
+                while (pos != null) {
+                    String fechaEspañol = sdf.format(pos.getTimestamp()); // formato en español
+                    mensaje.append("Posición: ").append(pos.getPosicion())
+                            .append(", Hora: ").append(fechaEspañol)
+                            .append(", Castigo/Premio: ").append(pos.getPremioCastigo())
+                            .append("\n");
+                    pos = pos.getSiguiente();
+                }
+            }
+
+            // Opciones para el usuario
+            String opcion = JOptionPane.showInputDialog(
+                    null,
+                    mensaje + "\nSeleccione opción:\n1. Siguiente jugador\n2. Jugador anterior\n3. Salir",
+                    "Bitácora Historial",
+                    JOptionPane.QUESTION_MESSAGE
+            );
+
+            if (opcion == null || opcion.equals("3")) {
+                continuar = false;
+            } else if (opcion.equals("1")) {
+                actual = actual.getSiguiente();
+            } else if (opcion.equals("2")) {
+                actual = actual.getAnterior();
+            } else {
+                JOptionPane.showMessageDialog(null, "Opción inválida, intente de nuevo.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    } // fin del metodo mostrar bitacora
+
+
 }// fin de la clase

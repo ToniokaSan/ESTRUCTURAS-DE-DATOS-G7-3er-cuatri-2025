@@ -1,5 +1,8 @@
 package com.universidad.proyectofinal;
-
+/**
+ * Representa la creacion de una nueva pila en la que se establece la cima
+ *  Autores: Anthony Potoy Alemán, Natalie Barboza Garcia, Arianna Rodriguez Badilla, Sebastian Alvarez Murillo.
+ */
 public class Pila {
     private NodoPila cima;
 
@@ -18,15 +21,18 @@ public class Pila {
         this.cima = cima;
     }
 
-    // Métodos de la definición formal de Pilas
-
-    // Método que retorna true o false si la pila está vacía
-    // o si tiene elementos.
+    /**
+     * Metodo booleano que retorna verdadero o falso si esta se encuentra vacia
+     * @return boolean
+     */
     public boolean esVacia() {
         return cima == null;
     }
 
-    // Método apilar. Permite insertar un elemento a la pila  (PUSH)
+    /**
+     * Metodo apilar que permite agregar elementos a la pila.
+     * @param valor 
+     */
     public void apilar(String valor) {
         // Paso 1: Crear el Dato.
         Dato miDato = new Dato(valor);
@@ -45,7 +51,10 @@ public class Pila {
         }
     }
 
-    // Método desapilar. Permite sacar un elemento de la pila (POP)
+    /**
+     * Metodo desapilar, permite eliminar elementos de la pila.
+     * @return valor
+     */
     public Dato desapilar() {
         if (esVacia()) { // Si la pila está vacía, retorno Null para no caer en excepción (Stack Underflow)
             return null;
@@ -58,8 +67,9 @@ public class Pila {
             return valorTemporal;
         }
     }
-
-    // Método que recorre la pila y la imprime.
+    /**
+     * Metodo imprimir pila, permite imprimir la informacion que contiene la pila
+     */
     public void imprimePila() {
         if (esVacia()) {
             System.out.println("No se pudo imprimir, está vacía");

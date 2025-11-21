@@ -1,5 +1,11 @@
 package com.universidad.proyectofinal;
 
+/**
+ * Clase que permite moldear el nodo tipo pila, con sus atributos de dato y refrencia al siguiente elemento.
+ * Autores: Anthony Potoy Alemán, Natalie Barboza Garcia, Arianna
+ * Rodriguez Badilla, Sebastian Alvarez Murillo.
+ */
+
 public class NodoPila {
     private Dato dato;   //Primera mitad del nodo. Parte izquierda.
     private NodoPila abajo;  // Referencia al sgte Nodo (Similar a punteros).

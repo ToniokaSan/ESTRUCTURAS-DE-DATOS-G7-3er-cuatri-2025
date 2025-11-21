@@ -11,6 +11,11 @@ import java.text.SimpleDateFormat;
 public class ListaPosiciones {
     private NodoPosicion primero;
 
+    public NodoPosicion getPrimero() {
+        return primero;
+    }
+
+    
     public ListaPosiciones() {}
 
     public boolean estaVacia() { return primero == null; }

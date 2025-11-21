@@ -5,8 +5,9 @@
 package com.universidad.proyectofinal;
 
 /**
- *
- * @author EQUIPO
+ * Clase que permite moldear el nodo circular para ejectutar una lista de tipo circular.
+ * Autores: Anthony Potoy Alemán, Natalie Barboza Garcia, Arianna Rodriguez
+ * Badilla, Sebastian Alvarez Murillo.
  */
 public class NodoCircular {
     private int dato;

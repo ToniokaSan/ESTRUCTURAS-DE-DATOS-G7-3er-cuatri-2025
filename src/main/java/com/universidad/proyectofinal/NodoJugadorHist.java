@@ -1,5 +1,9 @@
 package com.universidad.proyectofinal;
-
+/**
+ * Clase que permite moldear nodo del jugador historico, con el fin de crear una lista de jugador historico.
+ * Autores: Anthony Potoy Alemán, Natalie Barboza Garcia, Arianna
+ * Rodriguez Badilla, Sebastian Alvarez Murillo.
+ */
 public class NodoJugadorHist {
     private String nombre;
     private ListaPosiciones historial; // lista simple interna de posiciones

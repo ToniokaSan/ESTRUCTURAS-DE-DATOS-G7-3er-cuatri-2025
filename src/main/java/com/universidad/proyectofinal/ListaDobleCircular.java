@@ -5,8 +5,8 @@
 package com.universidad.proyectofinal;
 
 /**
- *
- * @author EQUIPO
+ * Clase que ejecuta la creacion de una lista de tipo circular
+ * Autores: Anthony Potoy Alemán, Natalie Barboza Garcia, Arianna Rodriguez Badilla, Sebastian Alvarez Murillo.
  */
 public class ListaDobleCircular {
     private NodoDoble primero;
@@ -30,7 +30,11 @@ public class ListaDobleCircular {
     public void setUltimo(NodoDoble ultimo) {
         this.ultimo = ultimo;
     }
-    
+    /**
+     * Metodo insertar ordenado permite insertar valores en la lista doble circular
+     * ordenandolos mediante las caracteristicas de sus atributos.
+     * @param valor 
+     */
     public void insertaOrdenado(int valor){
         // Caso 1: Lista esta vacía.
         if (primero == null){

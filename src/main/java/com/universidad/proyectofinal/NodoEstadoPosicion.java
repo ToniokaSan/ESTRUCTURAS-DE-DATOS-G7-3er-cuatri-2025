@@ -1,5 +1,9 @@
 package com.universidad.proyectofinal;
-
+/**
+ * Clase que permite crear un nodo con la posicion del jugador en el proyecto MVP
+ * Autores: Anthony Potoy Alemán, Natalie Barboza Garcia, Arianna
+ * Rodriguez Badilla, Sebastian Alvarez Murillo.
+ */
 public class NodoEstadoPosicion {
     private int posicion;
     private String nombreJugador; // null cuando está vacía

@@ -5,12 +5,15 @@
 package com.universidad.proyectofinal;
 
 /**
- *
- * @author EQUIPO
+ * Clase que ejecuta la creacion de una lista de tipo doble.
+ * Autores: Anthony Potoy Alemán, Natalie Barboza Garcia, Arianna Rodriguez Badilla, Sebastian Alvarez Murillo.
  */
 public class ListaDoble {
    private NodoDoble primero;
 
+   /**
+    * Constructor vacio
+    */
     public ListaDoble() {
     }
 
@@ -21,7 +24,10 @@ public class ListaDoble {
     public void setPrimero(NodoDoble primero) {
         this.primero = primero;
     }
-   
+   /**
+    * Metodo insertar ordenado que permite insetar valores a una lista doble
+    * @param valor 
+    */
     public void insertaOrdenado(int valor){
         // Caso 1: La lista está vacía.
         if (primero == null){

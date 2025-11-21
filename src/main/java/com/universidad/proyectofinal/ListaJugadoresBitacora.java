@@ -10,6 +10,15 @@ public class ListaJugadoresBitacora {
     private NodoJugadorHist primero;
     private NodoJugadorHist ultimo;
 
+    public NodoJugadorHist getPrimero() {
+        return primero;
+    }
+
+    public NodoJugadorHist getUltimo() {
+        return ultimo;
+    }
+
+    
     public ListaJugadoresBitacora() {}
 
     public boolean estaVacia() { return primero == null; }

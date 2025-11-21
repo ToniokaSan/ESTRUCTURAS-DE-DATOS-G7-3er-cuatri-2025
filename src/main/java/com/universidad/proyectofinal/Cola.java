@@ -7,34 +7,55 @@ package com.universidad.proyectofinal;
 /**
  * Clase Principal de la EE DD Cola.
  * Almacenará las referencias así como los métodos de la definición formal de Cola.
- * @author EQUIPO
+ * Autores: Anthony Potoy Alemán, Natalie Barboza Garcia, Arianna Rodriguez Badilla, Sebastian Alvarez Murillo.
  */
 public class Cola {
     private Nodo frente;  // Referencia que apunta al primer elemento de la cola.
     private Nodo fin;  // Referencia que apunta al último elemento de la cola.
 
+    /**
+     * Constructor de cola que a su vez esyablece el frente y fin como nulos.
+     */
     public Cola() {
         this.frente = null;
         this.fin = null;
     }
 
+    /**
+     * obtiene el frente
+     * @return frente
+     */
     public Nodo getFrente() {
         return frente;
     }
 
+    /**
+     * obtiene el fin
+     * @return fin
+     */
     public Nodo getFin() {
         return fin;
     }
 
+    /**
+     * modifica
+     * @param frente 
+     */
     public void setFrente(Nodo frente) {
         this.frente = frente;
     }
-    
+    /**
+     * modifica el fin
+     * @param fin 
+     */
     public void setFin(Nodo fin) {
         this.fin = fin;
     }
     
-    // Crear los métodos de la definición formal de Cola.
+    /**
+     * Metodo permite encolar una nueva cola
+     * @param valor 
+     */
     public void encolar(Dato valor){
         Nodo nuevo = new Nodo(valor);   // PASO 1 Crear la cajita.
         
@@ -46,7 +67,11 @@ public class Cola {
         }
         fin = nuevo;    // Coloco la referencia del fin a apuntar a la nueva cajita
     }
-    
+    /**
+     * Metodo desencolar permite desencolar una cola 
+     * @return variable temporal
+     * @throws Exception 
+     */
     public DatoJugador desencolar()throws Exception {
     
         if (frente == null){  // Si la cola está vacía. NO podemos desencolar
@@ -63,14 +88,20 @@ public class Cola {
         }
     
     }
-    
+    /**
+     * Metodo que ejecuta el frente de la cola
+     * @return jugador que se encuentra en el frente.
+     */
     public DatoJugador frente(){
         if (this.getFrente() == null)
             return null;
         else
             return this.frente.getNombreJugador();
     }
-    
+    /**
+     * Metodo esta vacia, ejecuta un boolean que retorna verdadero o falso.
+     * @return 
+     */
     public boolean estaVacia(){
        /*if (this.frente == null) 
            return true;
@@ -78,7 +109,9 @@ public class Cola {
            return false;*/
        return frente == null;
     }
-    
+    /**
+     * Metodo que permite imprimir una cola ya establecida.
+     */
     public void imprimeCola(){
         if (estaVacia()){
             System.out.println("No se pudo imprimir,la cola está vacía");

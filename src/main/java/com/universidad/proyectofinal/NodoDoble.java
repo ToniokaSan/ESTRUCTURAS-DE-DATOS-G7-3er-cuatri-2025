@@ -5,8 +5,9 @@
 package com.universidad.proyectofinal;
 
 /**
- *
- * @author EQUIPO
+ * Clase que permite moldear el nodo doble para ejectutar una lista de tipo doble.
+ * Autores: Anthony Potoy Alemán, Natalie Barboza Garcia, Arianna
+ * Rodriguez Badilla, Sebastian Alvarez Murillo.
  */
 public class NodoDoble {
     private NodoDoble anterior;

@@ -1,5 +1,10 @@
 package com.universidad.proyectofinal;
 
+/**
+ * Clase que permite moldear el nodo tipo posicion, con atributos de posicion, atributo de fecha y hora
+ * ademas de la informacion de premios y castigos.
+ * Autores: Anthony Potoy Alemán,Natalie Barboza Garcia, Arianna Rodriguez Badilla, Sebastian Alvarez Murillo.
+ */
 import java.util.Date;
 
 public class NodoPosicion {
