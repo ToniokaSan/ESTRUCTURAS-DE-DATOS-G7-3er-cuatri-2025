@@ -185,6 +185,7 @@ public class preparadosListosCola {
             contador++;
             actual = actual.getSiguiente();
         }
+        //Prueba de Github
         return contador;
     }
 }
