@@ -121,8 +121,12 @@ public class MenuJuego {
                         } else {
                             JOptionPane.showMessageDialog(null, "El nombre del jugador no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
                         }
-                    } else {
-                        JOptionPane.showMessageDialog(null, "No se permite el ingreso de nuevos jugadores en esta partida.", "Información", JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                        JOptionPane.showMessageDialog(null,
+                        "¡ERROR! La configuracion de este juego no permite ingresar mas jugadores,\n" +
+                        "debera esperar a que inicie uno nuevo.",
+                    "Configuracion de juego",
+                    JOptionPane.ERROR_MESSAGE);
                     }
                     break;
                 case 8:
@@ -199,24 +203,26 @@ public class MenuJuego {
     }
    // este metodo se va a utilizar en el codigo para validar que el jugador no se pase de la posicion maxima y de hacerlo este jugador rebota y retrocede la cantidad de posiciones que se pase
    private int validarRebote(int posicion) {
-    if (posicion > posicionMaxima) {// condicion, si la poscion es mayor que la posicion maxima
-        int exceso = posicion - posicionMaxima;//calculamos el exceso
-        int nueva = posicionMaxima - exceso; //calculamos la nueva posicion restandole el exeso
-
+    if (posicion > posicionMaxima) {
+        int exceso = posicion - posicionMaxima;
+        int nueva = posicionMaxima - exceso;
+        if (nueva < 1) {
+            nueva = 1;
+        }
         JOptionPane.showMessageDialog(null,
-                "¡Te pasaste de la meta!\n" +
-                "Llegaste mas alla de la posicion maxima (" + posicionMaxima + ") y retrocedes " + exceso +
-                " posiciones.\nTu nueva posición es: " + nueva);//Mostramos en pantalla
-
+            "¡Te pasaste de la meta!\n" +
+            "Llegaste mas alla de la posicion maxima (" + posicionMaxima + ") y retrocedes " + exceso +
+            " posiciones.\nTu nueva posicion es: " + nueva);
         bitacora.agregar(timeStamp() +
-                " - Rebote al pasar la meta. Exceso: " + exceso +
-                ", nueva posición: " + nueva);
-
+            " - Rebote al pasar la meta. Exceso: " + exceso +
+            ", nueva posicion: " + nueva);
         return nueva;
     }
-
-    return posicion; // si no se pasó, no se modifica
-}
+    if (posicion < 1) {
+        return 1;
+    }
+    return posicion;
+   }
     
     /**
      * Metodo principal que permite ejecutar la logica del juego donde se lanzaran dos dados por rondas
@@ -247,23 +253,23 @@ public class MenuJuego {
             JOptionPane.showMessageDialog(null, "Segundo dado lanzado, resultado: " + dado2);
             bitacora.agregar(timeStamp() + " - Dado2: " + dado2);
 
-            int sumaDados = dado1 + dado2; //suma de los dados
+            int sumaDados = dado1 + dado2;
             bitacora.agregar(timeStamp() + " - Suma de dados: " + sumaDados);
 
-            int nuevaPosicion = jugadorActual.getPosicion() + sumaDados;
-            jugadorActual.setPosicion(validarRebote(nuevaPosicion));//utilizamos el metodo validarRebote para que si se pasa de la posicion maxima retroceda
+            int posicionInicial = jugadorActual.getPosicion();
+            int posicionCalculada = posicionInicial + sumaDados;
+            int posicionFinal = validarRebote(posicionCalculada);
 
+            jugadorActual.setPosicion(posicionFinal);
 
-            
-            JOptionPane.showMessageDialog(null,
-                    "\nJugador: "+ jugadorActual.getValor()
-                    + "\nEstas en la posicion: " + (nuevaPosicion - sumaDados)
-                    + "\nPuedes avanzar: "+ sumaDados + " posiciones en la carrera"
-                    + "\nAhora su nueva posicion es: "+ nuevaPosicion
-            
-            );
-            String descripcionMovimiento = "Posición <<" + nuevaPosicion + ">> no tiene castigos/premios";
-            //inicio de premio premio o castigo
+               JOptionPane.showMessageDialog(null,
+            "\nJugador: " + jugadorActual.getValor()
+            + "\nEstabas en la posicion: " + posicionInicial
+            + "\nPuedes avanzar: " + sumaDados + " posiciones en la carrera"
+            + "\nAhora tu nueva posicion es: " + posicionFinal
+             );
+               
+            String descripcionMovimiento = "Posicion <<" + posicionFinal + ">> no tiene castigos/premios";            //inicio de premio premio o castigo
             if (sumaDados % 2 == 0){
                 
                 JOptionPane.showMessageDialog(null, "Obtuviste un numero par, debes tomar un premio de la pila. \nMucha Suerte");
@@ -279,36 +285,36 @@ public class MenuJuego {
                 }
                 
                 //aparicion de premios
-                if (premioObtenido != null){
-                    JOptionPane.showMessageDialog(null,
-                            "El premio es: " + premioObtenido.getDescripcion()
-                            + "\nSe aplicará su premio: " + premioObtenido.getOperacion() + premioObtenido.getNumero()
-                    
-                    );
-                    bitacora.agregar(timeStamp() + " - Aplicando premio: " + premioObtenido.getOperacion() + premioObtenido.getNumero() + " al jugador " + jugadorActual.getValor());
-                    if (premioObtenido.getOperacion() == '+') {
-                        jugadorActual.setPosicion(jugadorActual.getPosicion() + premioObtenido.getNumero()); //eliminar esta parte en caso de utilizar el metodo de validarRebote
-                        int nueva = jugadorActual.getPosicion() + premioObtenido.getNumero();
-                        jugadorActual.setPosicion(validarRebote(nueva));   //este codigo es para aplicar tambien la validacion de posicion maxima a los premios por si un premio se pasa de la meta pero es muy dificil ganar el juego con esta validcion asi que se puede utilizar en caso de que sea necesario
-                    } else if (premioObtenido.getOperacion() == '-') {         
-                        jugadorActual.setPosicion(jugadorActual.getPosicion() + premioObtenido.getNumero());//eliminar esta parte en caso de utilizar el metodo de validarRebote
-                       int nueva = jugadorActual.getPosicion() + premioObtenido.getNumero();
-                       jugadorActual.setPosicion(validarRebote(nueva));  //este codigo es para aplicar tambien la validacion de posicion maxima a los premios por si un premio se pasa de la meta pero es muy dificil ganar el juego con esta validcion asi que se puede utilizar en caso de que sea necesario
-                    } else if (premioObtenido.getOperacion() == '=') {
-                        jugadorActual.setPosicion(jugadorActual.getPosicion() + premioObtenido.getNumero());//eliminar esta parte en caso de utilizar el metodo de validarRebote
-                        int nueva = jugadorActual.getPosicion() + premioObtenido.getNumero();
-                        jugadorActual.setPosicion(validarRebote(nueva));  //este codigo es para aplicar tambien la validacion de posicion maxima a los premios por si un premio se pasa de la meta pero es muy dificil ganar el juego con esta validcion asi que se puede utilizar en caso de que sea necesario
-                    }
-                    descripcionMovimiento = premioObtenido.getDescripcion() + " (" + premioObtenido.getOperacion() + premioObtenido.getNumero() + ")";
-                }else{
-                    JOptionPane.showMessageDialog(null, "Ya no hay premios disponibles");
-                    descripcionMovimiento = "Posición <<" + jugadorActual.getPosicion() + ">> no tiene castigos/premios";
+               if (premioObtenido != null) {
+               JOptionPane.showMessageDialog(null,
+               "El premio es: " + premioObtenido.getDescripcion()
+               + "\nSe aplicara su premio: " + premioObtenido.getOperacion() + premioObtenido.getNumero()
+               );
+               bitacora.agregar(timeStamp() + " - Aplicando premio: " +
+            premioObtenido.getOperacion() + premioObtenido.getNumero() +
+            " al jugador " + jugadorActual.getValor());
+
+                int posPremio = jugadorActual.getPosicion();
+
+               if (premioObtenido.getOperacion() == '+') {
+                 posPremio = posPremio + premioObtenido.getNumero();
+               } else if (premioObtenido.getOperacion() == '-') {
+                posPremio = posPremio - premioObtenido.getNumero();
+                } else if (premioObtenido.getOperacion() == '=') {
+                posPremio = premioObtenido.getNumero();
                 }
 
-                JOptionPane.showMessageDialog(null, "Ahora su posicion colocada es: " + jugadorActual.getPosicion());
-                bitacora.agregar(timeStamp() + " - Posicion final del jugador " + jugadorActual.getValor() + ": " + jugadorActual.getPosicion());
+                posPremio = validarRebote(posPremio);
+                jugadorActual.setPosicion(posPremio);
 
-            }else{//aqui empiezan los castigos
+                descripcionMovimiento = premioObtenido.getDescripcion() +
+            " (" + premioObtenido.getOperacion() + premioObtenido.getNumero() + ")";
+
+                } else {
+                JOptionPane.showMessageDialog(null, "Ya no hay premios disponibles");
+                descripcionMovimiento = "Posicion <<" + jugadorActual.getPosicion() + ">> no tiene castigos/premios";
+                }
+                }else{//aqui empiezan los castigos
                 if (sumaDados % 2 == 1){
                 
                 JOptionPane.showMessageDialog(null, "Obtuviste un numero impar, debes tomar un castigo de la pila. \nMucha Suerte");
@@ -324,26 +330,34 @@ public class MenuJuego {
                 }
                 
                 //aparicion de castigos
-                if (castigoObtenido != null){
-                    JOptionPane.showMessageDialog(null,
-                            "El castigo es: " + castigoObtenido.getDescripcion()
-                            + "\nSe aplicará su castigo: " + castigoObtenido.getOperacion() + castigoObtenido.getNumero()
-                    
-                    );
-                    bitacora.agregar(timeStamp() + " - Aplicando castigo: " + castigoObtenido.getOperacion() + castigoObtenido.getNumero() + " al jugador " + jugadorActual.getValor());
-                    if (castigoObtenido.getOperacion() == '+') {
-                        jugadorActual.setPosicion(jugadorActual.getPosicion() + castigoObtenido.getNumero());
-                    } else if (castigoObtenido.getOperacion() == '-') {
-                        jugadorActual.setPosicion(jugadorActual.getPosicion() - castigoObtenido.getNumero());
-                    } else if (castigoObtenido.getOperacion() == '=') {
-                        jugadorActual.setPosicion(castigoObtenido.getNumero());
-                    }
-                    descripcionMovimiento = castigoObtenido.getDescripcion() + " (" + castigoObtenido.getOperacion() + castigoObtenido.getNumero() + ")";
+                if (castigoObtenido != null) {
+                JOptionPane.showMessageDialog(null,
+                "El castigo es: " + castigoObtenido.getDescripcion()
+                + "\nSe aplicara su castigo: " + castigoObtenido.getOperacion() + castigoObtenido.getNumero()
+                );
+                bitacora.agregar(timeStamp() + " - Aplicando castigo: " +
+                castigoObtenido.getOperacion() + castigoObtenido.getNumero() +
+                " al jugador " + jugadorActual.getValor());
 
-                    
-                }else{
-                    JOptionPane.showMessageDialog(null, "Ya no hay castigos disponibles");
-                    descripcionMovimiento = "Posición <<" + jugadorActual.getPosicion() + ">> no tiene castigos/premios";
+                int posCastigo = jugadorActual.getPosicion();
+
+                if (castigoObtenido.getOperacion() == '+') {
+                 posCastigo = posCastigo + castigoObtenido.getNumero();
+                } else if (castigoObtenido.getOperacion() == '-') {
+                posCastigo = posCastigo - castigoObtenido.getNumero();
+                } else if (castigoObtenido.getOperacion() == '=') {
+                posCastigo = castigoObtenido.getNumero();
+                }
+
+                posCastigo = validarRebote(posCastigo);
+                jugadorActual.setPosicion(posCastigo);
+
+                descripcionMovimiento = castigoObtenido.getDescripcion() +
+                " (" + castigoObtenido.getOperacion() + castigoObtenido.getNumero() + ")";
+
+                  } else {
+                JOptionPane.showMessageDialog(null, "Ya no hay castigos disponibles");
+                descripcionMovimiento = "Posicion <<" + jugadorActual.getPosicion() + ">> no tiene castigos/premios";
                 }
 
                 JOptionPane.showMessageDialog(null, "Ahora su posicion colocada es: " + jugadorActual.getPosicion()); 
@@ -354,6 +368,7 @@ public class MenuJuego {
             if (jugadorActual.getPosicion() >= posicionMaxima) {
                 JOptionPane.showMessageDialog(null, "¡Felicidades " + jugadorActual.getValor() + "! ¡Has ganado el juego!", "Fin del Juego", JOptionPane.INFORMATION_MESSAGE);
                 bitacora.agregar(timeStamp() + " - Jugador ganador: " + jugadorActual.getValor() + ", posicion: " + jugadorActual.getPosicion());
+                return;
                 // Here we could end the game, but for now we just put the player back.
             }
 
