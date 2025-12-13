@@ -85,7 +85,8 @@ public class MenuJuego {
                     + "\n7. Agregar Jugador"
                     + "\n8. Estado actual del Juego"
                     + "\n9. Bitacora-Historial"
-                    + "\n10. Cerrar programa"
+                    + "\n10. Chatbot FAQ"
+                    + "\n11. Cerrar programa"
             ));
             switch (opcion) {
                 case 1: 
@@ -138,9 +139,13 @@ public class MenuJuego {
                     mostrarBitacoraHistorial();
                     break;
                 case 10:
-                    JOptionPane.showMessageDialog(null, "Cerrando programa");
-                    bitacora.agregar(timeStamp() + " - Programa cerrado por el usuario");
-                    break;
+                new MenuChatbot(this).mostrarMenuChatbot();
+                break;
+
+                case 11:
+                JOptionPane.showMessageDialog(null, "Cerrando programa");
+                break;
+
                 default:
                     JOptionPane.showMessageDialog(null, "Opcion no valida, intente de nuevo.");
             }
