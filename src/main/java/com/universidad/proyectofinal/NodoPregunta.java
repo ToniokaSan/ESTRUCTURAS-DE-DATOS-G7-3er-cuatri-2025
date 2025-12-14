@@ -5,8 +5,10 @@
 package com.universidad.proyectofinal;
 
 /**
- *
- * @author potoy
+ * Clase nodo pregunta es una clase la cual se hace referencia a un nodo y al siguiente elemento
+ * donde se utilizan diferentes atributos para el funcionamiento de este.
+ *@Autores: Anthony Potoy Alemán, Natalie Barboza Garcia, Arianna Rodriguez
+ * Badilla, Sebastian Alvarez Murillo.
  */
 public class NodoPregunta {
     private Pregunta dato;
@@ -32,6 +34,7 @@ public class NodoPregunta {
     public void setSiguiente(NodoPregunta siguiente) {
         this.siguiente = siguiente;
     }
+    
     
     
     

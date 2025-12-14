@@ -5,8 +5,9 @@
 package com.universidad.proyectofinal;
 import javax.swing.*;
 /**
- *
- * @author potoy
+ * Clase Menu chat bot tiene como proposito desplegar la interfaz del menu del chat bot presente en el juego
+ * @Autores: Anthony Potoy Alemán, Natalie Barboza Garcia, Arianna Rodriguez
+ * Badilla, Sebastian Alvarez Murillo.
  */
 public class MenuChatBot {
     private ArbolChatBot arbol;
@@ -14,7 +15,9 @@ public class MenuChatBot {
     public MenuChatBot(ArbolChatBot arbol) {
         this.arbol = arbol;
     }
-    
+    /*
+    Metodo void mostrar menu, permite desplegar el menu del chatbot viendo las opciones disponibles.
+    */
     public void mostrarMenu() {
         int opcion;
         do {
@@ -39,59 +42,151 @@ public class MenuChatBot {
             }
         } while (opcion != 3);
     }
+    /*
+    Metodo void que conlleva a navegar en la interfaz del chatbot, permite navegar entre los nodos disponibles dentro del arbol.
+    */
+    public void verChatBot() {
+        NodoChatBot actual = arbol.getRaiz();
+        JOptionPane.showMessageDialog(null, "¡Bienvenido al ChatBot!");
+        boolean salir = false;
+
+        while (!salir) {
+            StringBuilder mensaje = new StringBuilder();
+            mensaje.append("Nodo: ").append(actual.getNombre()).append("\n");
+
+            int opcionNum = 1;
+            NodoChatBot hijo1 = actual.getIzquierdo();
+            NodoChatBot hijo2 = actual.getDerecho();
+
+            if (hijo1 != null) {
+                mensaje.append(opcionNum++).append(". ").append(hijo1.getNombre()).append("\n");
+            }
+            if (hijo2 != null) {
+                mensaje.append(opcionNum++).append(". ").append(hijo2.getNombre()).append("\n");
+            }
+
+            // Preguntas de la hoja
+            NodoPregunta preguntaActual = actual.getPreguntas() != null ? actual.getPreguntas().getCabeza() : null;
+            int primerIndicePregunta = opcionNum;
+            while (preguntaActual != null) {
+                mensaje.append(opcionNum++).append(". ").append(preguntaActual.getDato().getPregunta()).append("\n");
+                preguntaActual = preguntaActual.getSiguiente();
+            }
+
+            mensaje.append(opcionNum).append(". Regresar");
+
+            int opcion = -1;
+            try {
+                opcion = Integer.parseInt(JOptionPane.showInputDialog(mensaje.toString()));
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Ingrese un número válido.");
+                continue;
+            }
+
+            // Selección de hijo
+            if (opcion == 1 && hijo1 != null) {
+                actual = hijo1;
+            } else if (opcion == 2 && hijo2 != null) {
+                actual = hijo2;
+            } // Selección de pregunta
+            else if (opcion >= primerIndicePregunta && opcion < opcionNum) {
+                int contador = primerIndicePregunta;
+                preguntaActual = actual.getPreguntas() != null ? actual.getPreguntas().getCabeza() : null;
+                while (preguntaActual != null) {
+                    if (opcion == contador) {
+                        JOptionPane.showMessageDialog(null, preguntaActual.getDato().getRespuesta(), preguntaActual.getDato().getPregunta(), JOptionPane.INFORMATION_MESSAGE);
+                        break;
+                    }
+                    preguntaActual = preguntaActual.getSiguiente();
+                    contador++;
+                }
+            } // Regresar
+            else if (opcion == opcionNum) {
+                if (actual.getPadre() != null) {
+                    actual = actual.getPadre();
+                } else {
+                    salir = true;
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Opción inválida.");
+            }
+        }
+
+        JOptionPane.showMessageDialog(null, "¡Gracias por usar el ChatBot!");
+    }
+
     
+    /*
     private void verChatBot() {
         NodoChatBot actual = arbol.getRaiz();
         JOptionPane.showMessageDialog(null, "¡Bienvenido al ChatBot!");
         boolean salir = false;
+
         while (!salir) {
-            String mensaje = "Nodo: " + actual.getNombre() + "\n";
-            int contador = 1;
+            StringBuilder mensaje = new StringBuilder();
+            mensaje.append("Nodo: ").append(actual.getNombre()).append("\n");
+
+            int opcionNum = 1;
+            NodoChatBot[] hijos = new NodoChatBot[2]; // max 2 hijos
+            int index = 0;
+
             if (actual.getIzquierdo() != null) {
-                mensaje += contador++ + ". " + actual.getIzquierdo().getNombre() + "\n";
+                mensaje.append(opcionNum++).append(". ").append(actual.getIzquierdo().getNombre()).append("\n");
+                hijos[index++] = actual.getIzquierdo();
             }
             if (actual.getDerecho() != null) {
-                mensaje += contador++ + ". " + actual.getDerecho().getNombre() + "\n";
+                mensaje.append(opcionNum++).append(". ").append(actual.getDerecho().getNombre()).append("\n");
+                hijos[index++] = actual.getDerecho();
             }
-            if (actual.getPreguntas() != null) {
-                NodoPregunta p = actual.getPreguntas().getCabeza();
-                while (p != null) {
-                    mensaje += contador++ + ". " + p.getDato().getPregunta() + "\n";
-                    p = p.getSiguiente();
-                }
-            }
-            mensaje += contador + ". Regresar";
 
-            int opcion = Integer.parseInt(JOptionPane.showInputDialog(mensaje));
-            // Dependiendo de la selección, navegamos
-            int sel = 1;
-            if (actual.getIzquierdo() != null && opcion == sel) {
-                actual = actual.getIzquierdo();
-            } else if (actual.getDerecho() != null && opcion == sel + (actual.getIzquierdo() != null ? 1 : 0)) {
-                actual = actual.getDerecho();
-            } else if (actual.getPreguntas() != null) {
-                NodoPregunta p = actual.getPreguntas().getCabeza();
+            // Si es hoja con preguntas
+            NodoPregunta p = actual.getPreguntas() != null ? actual.getPreguntas().getCabeza() : null;
+            NodoPregunta[] listaPreguntas = null;
+            if (p != null) {
+                listaPreguntas = new NodoPregunta[10]; // tamaño arbitrario para almacenar preguntas
+                int i = 0;
                 while (p != null) {
-                    if (opcion == sel) {
-                        JOptionPane.showMessageDialog(null, p.getDato().getRespuesta());
-                        break;
-                    }
-                    sel++;
+                    mensaje.append(opcionNum).append(". ").append(p.getDato().getPregunta()).append("\n");
+                    listaPreguntas[i++] = p;
                     p = p.getSiguiente();
+                    opcionNum++;
                 }
-                if (opcion == sel) {
-                    actual = actual.getPadre(); // Regresar
+            }
+
+            // Opción de regresar
+            mensaje.append(opcionNum).append(". Regresar");
+            int opcion = Integer.parseInt(JOptionPane.showInputDialog(mensaje.toString()));
+
+            // Lógica de selección
+            if (opcion <= index && opcion > 0) {
+                // Seleccionó un hijo
+                actual = hijos[opcion - 1];
+            } else if (listaPreguntas != null && opcion > index && opcion <= index + listaPreguntas.length) {
+                int preguntaIndex = opcion - index - 1;
+                if (preguntaIndex < listaPreguntas.length && listaPreguntas[preguntaIndex] != null) {
+                    JOptionPane.showMessageDialog(null, listaPreguntas[preguntaIndex].getDato().getRespuesta());
+                } else {
+                    JOptionPane.showMessageDialog(null, "Opción inválida.");
+                }
+            } else if (opcion == opcionNum) {
+                // Regresar
+                if (actual.getPadre() != null) {
+                    actual = actual.getPadre();
+                } else {
+                    salir = true; // estamos en raíz, salir del ChatBot
                 }
             } else {
-                actual = actual.getPadre(); // Regresar
-            }
-            if (actual == null) {
-                salir = true;
+                JOptionPane.showMessageDialog(null, "Opción inválida.");
             }
         }
         JOptionPane.showMessageDialog(null, "¡Gracias por usar el ChatBot!");
     }
+    */
 
+    /*
+    Metodo void que permite realizar el mantenimiento del chatbot en modo administrador, este 
+    permite ya sea agregar un nodo o pregunta dentro del arbol, a su vez regresar entre las opciones.
+    */
     private void mantenimientoChatBot() {
         int opcion;
         do {
