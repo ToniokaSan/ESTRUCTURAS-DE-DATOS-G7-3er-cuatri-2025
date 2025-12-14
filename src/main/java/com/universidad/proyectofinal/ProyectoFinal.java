@@ -66,13 +66,18 @@ public class ProyectoFinal {
         //demostracion de premios y mantenimiento
         JOptionPane.showMessageDialog(null, pilaPremios.toString(), "Mantenimiento de Pilas", JOptionPane.INFORMATION_MESSAGE);
         
-        
+        //chat del bot carga de datos
+        ArbolChatBot arbolChatBot = new ArbolChatBot();
+        arbolChatBot.agregarNodo("1", "Juego");
+        arbolChatBot.agregarNodo("1", "Reglas");
+        arbolChatBot.agregarPregunta("1-1", new Pregunta("¿Cómo jugar?", "Instrucciones de juego", "Tira los dados y avanza."));
+        arbolChatBot.agregarPregunta("1-2", new Pregunta( "¿Cuales son las reglas?", "Toma de premios o castigos","Siempre debes tomar un premio o castigo... Suerte con ello :)" ));
         
         
         
         JOptionPane.showMessageDialog(null, pilaCastigos.toString(), "Mantenimiento de Pilas", JOptionPane.INFORMATION_MESSAGE);
         //iniciador del menu donde se gestionara el juego
-        MenuJuego menu1 = new MenuJuego(jugadores,pilaPremios,pilaCastigos, posicionMaxima, permitirNuevosJugadores);
+        MenuJuego menu1 = new MenuJuego(jugadores,pilaPremios,pilaCastigos, posicionMaxima, permitirNuevosJugadores, arbolChatBot);
         menu1.mostrarMenu();
         
     }

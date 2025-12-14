@@ -16,6 +16,7 @@ import java.util.Locale; //formato hora español
  */
 
 public class MenuJuego {
+    private ArbolChatBot arbolchatbot;
     // para traer los objetos que ya inicializo naty en el m ain y trabajarlos aca
 
     private preparadosListosCola jugadores;
@@ -37,7 +38,8 @@ public class MenuJuego {
      * @param pilaPremios Pila de premios
      * @param pilaCastigos Pila de castigos
      */
-    public MenuJuego(preparadosListosCola jugadores, PilaPremios pilaPremios, PilaCastigo pilaCastigos, int posicionMaxima, boolean permitirNuevosJugadores) {
+    public MenuJuego(preparadosListosCola jugadores, PilaPremios pilaPremios, PilaCastigo pilaCastigos, int posicionMaxima, boolean permitirNuevosJugadores, ArbolChatBot arbolChatBot ) { //arbol es para el chat bot
+        this.arbolchatbot = arbolChatBot; // para el chatbot
         this.jugadores = jugadores;
         this.pilaPremios = pilaPremios;
         this.pilaCastigos = pilaCastigos;
@@ -139,17 +141,18 @@ public class MenuJuego {
                     mostrarBitacoraHistorial();
                     break;
                 case 10:
-                new MenuChatbot(this).mostrarMenuChatbot();
+                    MenuChatBot menuChat = new MenuChatBot(arbolchatbot);
+                    menuChat.mostrarMenu();
                 break;
 
                 case 11:
-                JOptionPane.showMessageDialog(null, "Cerrando programa");
+                JOptionPane.showMessageDialog(null, "Cerrando programa... ¡Gracias por tu visita :D!");
                 break;
 
                 default:
                     JOptionPane.showMessageDialog(null, "Opcion no valida, intente de nuevo.");
             }
-        } while (opcion != 10);
+        } while (opcion != 11);
     }
     
     /**

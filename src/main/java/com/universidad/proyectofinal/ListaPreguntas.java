@@ -1,57 +1,39 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package com.universidad.proyectofinal;
 
-/*
- * Lista enlazada simple para manejar preguntas
+/**
+ *
+ * @author potoy
  */
 public class ListaPreguntas {
-
-    private Pregunta primero;
+    private NodoPregunta cabeza;
 
     public ListaPreguntas() {
-        primero = null;
+        cabeza = null;
     }
 
-    // Insertar una pregunta al final de la lista
-    public void insertar(String codigo, String pregunta, String respuesta) {
-        Pregunta nueva = new Pregunta(codigo, pregunta, respuesta);
+    public NodoPregunta getCabeza() {
+        return cabeza;
+    }
 
-        if (primero == null) {
-            primero = nueva;
+    public void setCabeza(NodoPregunta cabeza) {
+        this.cabeza = cabeza;
+    }
+    public void insertar(Pregunta p) {
+        NodoPregunta nuevo = new NodoPregunta(p);
+
+        if (cabeza == null) {
+            cabeza = nuevo;
         } else {
-            Pregunta aux = primero;
-            while (aux.siguiente != null) {
-                aux = aux.siguiente;
+            NodoPregunta aux = cabeza;
+            while (aux.getSiguiente() != null) {
+                aux = aux.getSiguiente();
             }
-            aux.siguiente = nueva;
+            aux.setSiguiente(nuevo);
         }
     }
-
-    public Pregunta getPrimero() {
-        return primero;
-    }
-
-    public boolean estaVacia() {
-        return primero == null;
-    }
-
-    // Eliminar una pregunta por código
-    public boolean eliminar(String codigo) {
-        if (primero == null) return false;
-
-        if (primero.codigo.equals(codigo)) {
-            primero = primero.siguiente;
-            return true;
-        }
-
-        Pregunta aux = primero;
-        while (aux.siguiente != null) {
-            if (aux.siguiente.codigo.equals(codigo)) {
-                aux.siguiente = aux.siguiente.siguiente;
-                return true;
-            }
-            aux = aux.siguiente;
-        }
-        return false;
-    }
+    
 }
-

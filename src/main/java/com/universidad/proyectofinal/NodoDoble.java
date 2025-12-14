@@ -47,6 +47,4 @@ public class NodoDoble {
         this.siguiente = siguiente;
     }
     
-    
-    
 }

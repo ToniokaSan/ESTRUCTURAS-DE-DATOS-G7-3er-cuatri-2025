@@ -35,5 +35,4 @@ public class NodoCircular {
         this.siguiente = siguiente;
     }
     
-    
 }
